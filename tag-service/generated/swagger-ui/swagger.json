@@ -1,0 +1,102 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "v1",
+    "title" : "tag-service"
+  },
+  "host" : "localhost:8081",
+  "basePath" : "/",
+  "tags" : [ {
+    "name" : "Tag service"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/api/v1/internal/tag/" : {
+      "post" : {
+        "tags" : [ "Tag service" ],
+        "summary" : "Save tag list",
+        "description" : "Save tag list.",
+        "operationId" : "saveTags",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/api/v1/tag/popular" : {
+      "get" : {
+        "tags" : [ "Tag service" ],
+        "summary" : "Get popular tags",
+        "description" : "Returns list of popular tags.",
+        "operationId" : "getPopular",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Page"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Page" : {
+      "type" : "object",
+      "properties" : {
+        "totalPages" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "totalElements" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object"
+          }
+        },
+        "number" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sort" : {
+          "$ref" : "#/definitions/Sort"
+        },
+        "first" : {
+          "type" : "boolean"
+        },
+        "numberOfElements" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "last" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "Sort" : {
+      "type" : "object"
+    }
+  }
+}

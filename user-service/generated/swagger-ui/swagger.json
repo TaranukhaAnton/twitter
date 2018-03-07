@@ -1,0 +1,115 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "v1",
+    "title" : "user-service"
+  },
+  "host" : "localhost:18081",
+  "basePath" : "/",
+  "tags" : [ {
+    "name" : "User data operations",
+    "description" : "RESTful API to interact with users data."
+  }, {
+    "name" : "User internal services"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/api/v1/users" : {
+      "post" : {
+        "tags" : [ "User data operations" ],
+        "summary" : "Save User",
+        "description" : "Saves new User.",
+        "operationId" : "saveUser",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "New user object.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "422" : {
+            "description" : "User with the specified name already exists",
+            "schema" : {
+              "$ref" : "#/definitions/ApiError"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/{login}" : {
+      "get" : {
+        "tags" : [ "User internal services" ],
+        "summary" : "Get user",
+        "description" : "Returns User with the specified username.",
+        "operationId" : "getUser",
+        "parameters" : [ {
+          "name" : "login",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "204" : {
+            "description" : "There is no user found."
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "ApiError" : {
+      "type" : "object",
+      "properties" : {
+        "timestamp" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "error" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "path" : {
+          "type" : "string"
+        }
+      }
+    },
+    "User" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "login" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

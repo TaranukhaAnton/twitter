@@ -1,0 +1,5 @@
+spring.application.name: user-service
+server.port: 18081
+
+spring.jackson.date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+
